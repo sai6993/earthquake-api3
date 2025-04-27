@@ -1,7 +1,5 @@
-version: '3'
-
 services:
-  earthquake-api:
+  web:
     build: .
     ports:
       - "5000:5000"
