@@ -4,17 +4,20 @@ FROM python:3.10-slim
 # 2. Set working directory
 WORKDIR /app
 
-# 3. Copy requirements.txt first
+# 3. Install Flask and Werkzeug
+RUN pip install flask==2.2.3 werkzeug==2.2.3
+
+# 4. Copy requirements.txt first
 COPY requirements.txt .
 
-# 4. Install Python packages
+# 5. Install Python packages
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 5. Copy all your app files
+# 6. Copy all your app files
 COPY app ./app
 
-# 6. Expose port
+# 7. Expose port
 EXPOSE 5000
 
-# 7. Start the application
-CMD ["python", "app/main.py"]
+# 8. Start the application with Gunicorn for production
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app.main:app"]

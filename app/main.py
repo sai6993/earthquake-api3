@@ -33,5 +33,7 @@ def get_earthquakes_tsunami():
     filtered = filter_tsunami_alerts(data, state)
     return jsonify(filtered)
 
+# Run with Gunicorn for production
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    # Ensure this block runs only in development
+    app.run(debug=False, host='0.0.0.0', port=5000)
